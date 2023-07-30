@@ -9,13 +9,13 @@ const OpportunityCard = ({ opportunity, type, isCompanyViewing }) => {
   return (
     <div className={opportunityStyles.container}>
       <div>
-        {opportunity.profilePhoto ? (
+        {/* {opportunity.profilePhoto ? (
           <Image src={opportunity.profilePhoto} height={40} width={40} alt="" />
-        ) : (
-          <span>
-            <BiUserCircle size="40px" />
-          </span>
-        )}
+        ) : ( */}
+        <span>
+          <BiUserCircle size="40px" />
+        </span>
+        {/* )} */}
       </div>
       <div
         style={{
@@ -24,7 +24,10 @@ const OpportunityCard = ({ opportunity, type, isCompanyViewing }) => {
           marginLeft: ".5rem",
         }}
       >
-        <span className={utilityStyles.headingsm}>
+        <span
+          className={utilityStyles.headingsm}
+          style={{ marginBottom: "1rem" }}
+        >
           {type == "candidate" ? opportunity.name : opportunity.title}
         </span>
         {type != "candidate" ? (
