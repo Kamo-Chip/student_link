@@ -1,0 +1,57 @@
+.heading1,
+.heading2,
+.heading3 {
+  font-weight: 500;
+}
+
+.heading1 {
+  font-size: 36px;
+}
+
+.heading2 {
+  font-size: 32px;
+}
+
+.heading3 {
+  font-size: 24px;
+}
+
+.headingsm {
+  font-size: 1rem;
+  font-weight: 500;
+}
+
+.textsm {
+  font-size: 14px;
+}
+
+.tab {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: var(--border-radius-lg);
+  border: solid 1px var(--border-grey);
+  background-color: #fff;
+  font-size: 14px;
+  width: fit-content;
+  padding: 0.2em 0.5em;
+  font-weight: 500;
+}
+
+.button,
+.button1 {
+  border-radius: var(--border-radius-sm);
+  padding: 0.25em 0.5em;
+  background-color: var(--lime-green);
+  height: fit-content;
+  font-weight: 500;
+  width: fit-content;
+}
+
+.button {
+  font-size: 16px;
+}
+
+.button1 {
+  font-size: 14px;
+}

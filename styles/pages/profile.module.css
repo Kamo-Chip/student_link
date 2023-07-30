@@ -1,0 +1,12 @@
+.container {
+  background-color: var(--card-bg);
+  border: solid 1px var(--border-grey);
+  border-radius: var(--border-radius-sm);
+  position: relative;
+  padding: .75rem;
+}
+
+.header {
+  display: flex;
+  flex-direction: row;
+}

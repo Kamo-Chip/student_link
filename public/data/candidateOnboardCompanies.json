@@ -1,0 +1,107 @@
+[
+  {
+    "companyName": "Vodacom",
+    "companyLogo": "/vodacom.png",
+    "positions": [
+      "Sales representative",
+      "Marketing manager",
+      "IT specialist",
+      "Network engineer",
+      "Compliance officer",
+      "Financial analyst"
+    ],
+    "industries": ["Technology", "Telecommunications"],
+    "bio": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat."
+  },
+  {
+    "companyName": "Pioneer Foods",
+    "companyLogo": "https://upload.wikimedia.org/wikipedia/en/6/6d/Pioneer_Foods_logo.png",
+    "positions": [
+      "Sales representative",
+      "Marketing manager",
+      "IT specialist",
+      "Network engineer",
+      "Compliance officer",
+      "Financial analyst"
+    ],
+    "industries": ["Agriculture", "Telecommunications"],
+    "bio": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat."
+  },
+  {
+    "companyName": "Standard Bank",
+    "companyLogo": "/logos/standard_bank.jpg",
+    "positions": [],
+    "industries": ["Banking"],
+    "bio": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat."
+  },
+  {
+    "companyName": "WBHO",
+    "companyLogo": "/logos/wbho.jpg",
+    "positions": [],
+    "industries": ["Construction"],
+    "bio": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat."
+  },
+  {
+    "companyName": "Unilever",
+    "companyLogo": "/logos/unilever.jpg",
+    "positions": [],
+    "industries": ["Consumer Goods"],
+    "bio": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat."
+  },
+  {
+    "companyName": "Exxaro",
+    "companyLogo": "/logos/exxaro.jpg",
+    "positions": [],
+    "industries": ["Energy"],
+    "bio": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat."
+  },
+  {
+    "companyName": "Investec",
+    "companyLogo": "/logos/investec.jpg",
+    "positions": [],
+    "industries": ["Financial Services"],
+    "bio": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat."
+  },
+  {
+    "companyName": "Discovery",
+    "companyLogo": "/logos/discovery.png",
+    "positions": [],
+    "industries": ["Healthcare", "Insurance"],
+    "bio": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat."
+  },
+  {
+    "companyName": "Old mutual",
+    "companyLogo": "/logos/oldmutual.jpg",
+    "positions": [],
+    "industries": ["Insurance"],
+    "bio": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat."
+  },
+  {
+    "companyName": "Woolworths Holdings",
+    "companyLogo": "/logos/woolworths.jpg",
+    "positions": [],
+    "industries": ["Retail"],
+    "bio": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat."
+  },
+  {
+    "companyName": "Siemens",
+    "companyLogo": "/logos/siemens.jpg",
+    "positions": [],
+    "industries": ["Technology"],
+    "bio": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat."
+  },
+  {
+    "companyName": "Emirates",
+    "companyLogo": "/logos/emirates.png",
+    "positions": [],
+    "industries": ["Transport"],
+    "bio": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat."
+  },
+  {
+    "companyName": "Rand water",
+    "companyLogo": "/logos/randwater.png",
+    "positions": [],
+    "industries": ["Utilities"],
+    "bio": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat."
+  }
+]

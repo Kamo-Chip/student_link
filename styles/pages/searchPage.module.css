@@ -1,0 +1,21 @@
+.container {
+  display: flex;
+  flex-direction: column;
+}
+
+.searchContainer {
+  display: flex;
+  flex-direction: column;
+}
+
+.searchContainer input {
+  width: 100%;
+  margin-right: 1rem;
+}
+
+.filtersContainer {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  margin-top: 1rem;
+}
