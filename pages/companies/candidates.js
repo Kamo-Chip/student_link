@@ -24,26 +24,26 @@ const CompaniesCandidatePage = () => {
   }
   return (
     <SearchPage
-      placeholder={"Search opportunity"}
+      placeholder={"Search candidate"}
       filters={
         <>
           <CustomSelect
             id="type"
-            title="Type"
+            title="Degree"
             options={["Internship", "Graduate Programme", "Bursary", "Job"]}
             isSearch
             isSm
           />
           <CustomSelect
             id="type"
-            title="Location"
+            title="Skill"
             options={["Internship", "Graduate Programme", "Bursary", "Job"]}
             isSearch
             isSm
           />
           <CustomSelect
             id="type"
-            title="Industry"
+            title="Uni"
             options={["Internship", "Graduate Programme", "Bursary", "Job"]}
             isSearch
             isSm

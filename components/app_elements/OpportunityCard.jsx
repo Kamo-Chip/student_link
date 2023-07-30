@@ -4,7 +4,7 @@ import Image from "next/image";
 import utilityStyles from "@/styles/utils/utilities.module.css";
 import { useRouter } from "next/router";
 
-const OpportunityCard = ({ opportunity, type }) => {
+const OpportunityCard = ({ opportunity, type, isCompanyViewing }) => {
   const router = useRouter();
   return (
     <div className={opportunityStyles.container}>
@@ -63,6 +63,8 @@ const OpportunityCard = ({ opportunity, type }) => {
           ? "View more"
           : type == "candidate"
           ? "Message"
+          : isCompanyViewing
+          ? "Delete"
           : "Apply"}
       </span>
     </div>

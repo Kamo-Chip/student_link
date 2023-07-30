@@ -35,7 +35,29 @@ const CandidateOpportunitiesPage = () => {
           />
         </>
       }
-      elements={opportunities}
+      elements={[
+        {
+          title: "AdaptIT Hackathon",
+          company: "AdaptIT",
+          location: "Johannesburg",
+          type: "In-person",
+          link: "#",
+        },
+        {
+          title: "TECHSPO",
+          company: "TECHSPO",
+          location: "Cape Town",
+          type: "In-person",
+          link: "https://techspocapetown.co.za",
+        },
+        {
+          title: "THE ROCKING FUTURE ROADSHOW",
+          company: "3RC",
+          location: "Pietermaritzburg",
+          type: "In-person",
+          link: "know more",
+        },
+      ]}
       type={"event"}
     />
   );

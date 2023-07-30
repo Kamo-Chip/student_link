@@ -4,16 +4,23 @@ import { BiUserCircle } from "react-icons/bi";
 import utilityStyles from "@/styles/utils/utilities.module.css";
 import { Router, useRouter } from "next/router";
 
-const CandidateProfilePage = ({ userDetails, isCompanyViewing }) => {
+const CandidateProfile = ({ userDetails, isCompanyViewing }) => {
   const router = useRouter();
 
   return (
     <>
+      {console.log(userDetails)}
       <div className={profileStyles.container}>
         <div className={profileStyles.header}>
           <div>
             {userDetails.profilePhoto ? (
-              <Image src={opportunity.logo} height={120} width={120} alt="" />
+              <Image
+                loader={() => userDetails.profilePhoto}
+                src={userDetails.profilePhoto}
+                height={120}
+                width={120}
+                alt=""
+              />
             ) : (
               <span>
                 <BiUserCircle size="120px" />
@@ -134,13 +141,20 @@ const CandidateProfilePage = ({ userDetails, isCompanyViewing }) => {
           </div>
         </div>
       </div>
-      <div className={profileStyles.container} style={{ marginTop: "1rem" }}>
+      <div
+        style={{ marginTop: "1rem", display: "flex", flexDirection: "column" }}
+      >
         <span className={utilityStyles.heading3}>Video Intro</span>
-        {!userDetails.videoIntro ? (
+        {!userDetails.introVideo ? (
           <div>No video</div>
         ) : (
-          <video autoPlay loop style={{ width: "500px", height: "500px" }}>
-            <source src={userDetails.videoIntro} />
+          <video
+            controls
+            width="200"
+            style={{ maxHeight: "140px", width: "auto" }}
+            id="introVideo"
+          >
+            <source src={userDetails.introVideo} type="video/mp4" />
           </video>
         )}
       </div>
@@ -267,4 +281,4 @@ const CandidateProfilePage = ({ userDetails, isCompanyViewing }) => {
   );
 };
 
-export default CandidateProfilePage;
+export default CandidateProfile;

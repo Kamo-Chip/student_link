@@ -1,38 +1,58 @@
 [
   {
     "title": "Technology Graduate Programme",
-    "company": "Accenture",
-    "location": "Midrand",
+    "company": "AdaptIT",
+    "location": "Johannesburg",
     "type": "Graduate Programme",
-    "logo": "",
-    "link": "#"
+    "link": "https://www.adaptit.com/careers"
   },
   {
     "title": "Technology Graduate Programme",
-    "company": "Accenture",
-    "location": "Midrand",
+    "company": "Dimension data",
+    "location": "Johannesburg",
     "type": "Graduate Programme",
-    "link": "#"
+    "link": "https://www.coolcareers.co.za/jobs?user=28040&n0=27942&id=27919&++Dimension+Data:+Graduate+/+Internship+Programme+2023&utm_campaign=google_jobs_apply&utm_source=google_jobs_apply&utm_medium=organic"
+  },
+  {
+    "title": "Software Developer",
+    "company": "Fourier",
+    "location": "Centurion",
+    "type": "Job",
+    "link": "https://fourierit.co.za/career-in-it-and-software-solutions/"
+  },
+  {
+    "title": "IT Intern",
+    "company": "RAD Resources",
+    "location": "Johannesburg",
+    "type": "Internship",
+    "link": "https://www.careerjunction.co.za/IT-Intern-Job-2527642.aspx?cid=msearche_linkedin"
+  },
+  {
+    "title": "Automation Tester",
+    "company": "Enterprise Outsourcing Holdings Ltd.",
+    "location": "Johannesburg",
+    "type": "Job",
+    "link": "https://eoh.co.za/EOHExternal/FO/components/details.html?jobId=186264&jobTitle=Automation%20Tester"
+  },
+  {
+    "title": "Internship Programme",
+    "company": "IBM",
+    "location": "Johannesburg",
+    "type": "Internship",
+    "link": "https://za.bebee.com/job/20230726-dd440c5cd9267a8cd96b71f15f9cd87d?utm_campaign=google_jobs_apply&utm_source=google_jobs_apply&utm_medium=organic"
   },
   {
     "title": "Technology Graduate Programme",
-    "company": "Accenture",
-    "location": "Midrand",
+    "company": "BBD Software Development",
+    "location": "Johannesbrug",
     "type": "Graduate Programme",
-    "link": "#"
+    "link": "https://bbdsoftware.com/jobs/graduate-programme-2023/"
   },
   {
-    "title": "Technology Graduate Programme",
-    "company": "Accenture",
-    "location": "Midrand",
+    "title": "Accounting Graduate Programme",
+    "company": "Deloitte",
+    "location": "Johannesburg",
     "type": "Graduate Programme",
-    "link": "#"
-  },
-  {
-    "title": "Technology Graduate Programme",
-    "company": "Accenture",
-    "location": "Midrand",
-    "type": "Graduate Programme",
-    "link": "#"
+    "link": "https://joindeloitte.co.za/Account/Register"
   }
 ]

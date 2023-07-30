@@ -7,17 +7,17 @@ import { useAuthState } from "react-firebase-hooks/auth";
 import CustomSelect from "@/components/ui_elements/CustomSelect";
 import { locations } from "@/public/data/filterOptions.json";
 import Router from "next/router";
-const CompanyCreateEventPage = () => {
+const CompanyCreateJobPage = () => {
   const [user, loading] = useAuthState(auth);
-  const [eventDetails, setEventDetails] = useState({
+  const [jobDetails, setJobDetails] = useState({
     title: "",
     location: "",
     type: "",
+    link: "",
+    profilePhoto: "",
     industry: "",
     company: "",
     companyId: "",
-    profilePhoto: "",
-    link: "",
   });
   const [companyDetails, setCompanyDetails] = useState(null);
 
@@ -27,23 +27,24 @@ const CompanyCreateEventPage = () => {
   };
 
   const handleSubmit = async () => {
-    await addDoc(collection(db, "events"), {
-      ...eventDetails,
+    await addDoc(collection(db, "jobs"), {
+      ...jobDetails,
       companyId: user.uid,
       company: companyDetails.name,
+      profilePhoto: companyDetails.profilePhoto,
       industry: companyDetails.industries[0],
     });
-    Router.push("/companies/events");
+    Router.push("/companies/jobs");
   };
 
   const handleChange = (e) => {
-    setEventDetails({ ...eventDetails, [e.target.id]: e.target.value });
+    setJobDetails({ ...jobDetails, [e.target.id]: e.target.value });
   };
 
   const handleSelectChange = (e) => {
     const source = e.target.parentElement.parentElement.id;
     const value = e.target.innerText;
-    setEventDetails({ ...eventDetails, [source]: value });
+    setJobDetails({ ...jobDetails, [source]: value });
   };
 
   useEffect(() => {
@@ -58,7 +59,7 @@ const CompanyCreateEventPage = () => {
         className={utilityStyles.heading2}
         style={{ textAlign: "center", marginBottom: "1rem" }}
       >
-        Create Event
+        Create Job
       </span>
       <span>Title</span>
       <input
@@ -66,7 +67,7 @@ const CompanyCreateEventPage = () => {
         id="title"
         style={{ marginBottom: "1rem" }}
         onChange={handleChange}
-      />{" "}
+      />
       <span>Link</span>
       <input
         type="text"
@@ -87,7 +88,7 @@ const CompanyCreateEventPage = () => {
       <CustomSelect
         id="type"
         title="Select"
-        options={["In-person", "Online"]}
+        options={["Internship", "Graduate Programme", "Bursary", "Job"]}
         showSelectedOptionAsTitle
         isSearch
         handleChange={handleSelectChange}
@@ -103,4 +104,4 @@ const CompanyCreateEventPage = () => {
   );
 };
 
-export default CompanyCreateEventPage;
+export default CompanyCreateJobPage;

@@ -9,9 +9,13 @@ import {
 import PreferencePage from "@/components/app_elements/PreferencePage";
 import Router, { useRouter } from "next/router";
 import utilityStyles from "@/styles/utils/utilities.module.css";
-import { auth, db } from "@/firebase";
+import { auth, db, storage } from "@/firebase";
 import { signInWithPopup, GoogleAuthProvider } from "firebase/auth";
 import { setDoc, doc } from "firebase/firestore";
+import { uploadBytes, getDownloadURL, ref } from "firebase/storage";
+import Image from "next/image";
+import { HiUser } from "react-icons/hi";
+import { useAuthState } from "react-firebase-hooks/auth";
 
 const CompanyOnboardPage = () => {
   const [preferences, setPreferences] = useState({
@@ -20,13 +24,18 @@ const CompanyOnboardPage = () => {
     skills: [],
     roles: [],
     values: [],
+    profilePhoto: "",
+    profilePhotoTitle: "",
     name: "",
   });
+  const [imageFile, setImageFile] = useState(null);
   const [currentPage, setCurrentPage] = useState(0);
   const provider = new GoogleAuthProvider();
   const router = useRouter();
+
   const userDetails = {
     profilePhoto: "",
+    profilePhotoName: "",
     jobPosts: [],
     events: [],
     schoolYear: "",
@@ -36,6 +45,54 @@ const CompanyOnboardPage = () => {
     socials: [],
     skills: [],
     desiredRoles: [],
+    profilePhotoTitle: "",
+  };
+
+  const storeLogo = async (id) => {
+    const storageRef = ref(storage, `${id}/${imageFile.name}`);
+    uploadBytes(storageRef, imageFile)
+      .then(() => {
+        getDownloadURL(storageRef)
+          .then((url) => {
+            // setPreferences((prevState) => ({
+            //   ...prevState,
+            //   profilePhoto: url,
+            //   profilePhotoTitle: file.name,
+            // }));
+            userDetails.profilePhoto = url;
+            userDetails.profilePhotoTitle = file.name;
+            deleteLogo();
+          })
+          .catch((err) => console.error(err));
+      })
+      .catch((err) => console.log(err));
+  };
+
+  const handleLogoUpload = async () => {
+    const file = document.querySelector("#profilePhoto").files[0];
+    if (!file) return;
+    setImageFile(file);
+    const reader = new FileReader();
+
+    reader.onload = () => {
+      const dataURL = reader.result;
+      localStorage.setItem("profilePhoto", dataURL);
+    };
+
+    reader.readAsDataURL(file);
+    setPreferences({
+      ...preferences,
+      profilePhoto: localStorage.getItem("profilePhoto"),
+    });
+    console.log(preferences.profilePhoto.name);
+  };
+
+  const deleteLogo = () => {
+    localStorage.removeItem("profilePhoto");
+    setPreferences({
+      ...preferences,
+      profilePhoto: "",
+    });
   };
 
   const handleSubmit = async () => {
@@ -43,6 +100,8 @@ const CompanyOnboardPage = () => {
       const result = await signInWithPopup(auth, provider);
       if (result.user) {
         router.push("/companies/dashboard");
+        await storeLogo(result.user.uid);
+        console.log(userDetails);
         await setDoc(doc(db, "companies", result.user.uid), {
           ...userDetails,
           id: result.user.uid,
@@ -50,6 +109,8 @@ const CompanyOnboardPage = () => {
           email: result.user.email,
           values: preferences.values,
           desiredRoles: preferences.roles,
+          profilePhoto: userDetails.profilePhoto,
+          profilePhotoName: userDetails.profilePhotoName,
           skills: preferences.skills,
           locations: preferences.locations,
           industries: preferences.industries,
@@ -102,6 +163,64 @@ const CompanyOnboardPage = () => {
               setPreferences({ ...preferences, name: e.target.value })
             }
           />
+          <div
+            style={{
+              display: "flex",
+              flexDirection: "row",
+              alignItems: "center",
+            }}
+          >
+            <div style={{ marginRight: "2rem" }}>
+              {preferences.profilePhoto == "" ? (
+                <span
+                  style={{
+                    marginRight: "1rem",
+                  }}
+                >
+                  <HiUser size="90px" color="#000" />
+                </span>
+              ) : (
+                <Image
+                  loader={() => preferences.profilePhoto}
+                  src={preferences.profilePhoto}
+                  alt="logo"
+                  height={90}
+                  width={90}
+                  style={{
+                    marginRight: "1rem",
+                  }}
+                  className={utilityStyles.profilePhoto}
+                />
+              )}
+            </div>
+            {preferences.profilePhoto !== "" ? (
+              <span
+                onClick={() => {
+                  deleteLogo();
+                }}
+                className={utilityStyles.button}
+              >
+                Delete logo
+              </span>
+            ) : (
+              <label
+                htmlFor="profilePhoto"
+                style={{ width: "fit-content" }}
+                className={utilityStyles.button}
+              >
+                Upload logo
+              </label>
+            )}
+            <input
+              type="file"
+              name="profilePhoto"
+              id="profilePhoto"
+              style={{ display: "none" }}
+              onChange={() => {
+                handleLogoUpload();
+              }}
+            />
+          </div>
         </div>
       ) : currentPage == 1 ? (
         <ValuePage

@@ -7,6 +7,7 @@ import { auth, db } from "@/firebase";
 import { useAuthState } from "react-firebase-hooks/auth";
 import { useEffect, useState } from "react";
 import { doc, getDoc } from "firebase/firestore";
+import CandidateProfile from "@/components/app_elements/CandidateProfile";
 
 const CandidateProfilePage = () => {
   const router = useRouter();
@@ -22,13 +23,14 @@ const CandidateProfilePage = () => {
     if (user) {
       getUser();
     }
+    console.log(user);
   }, [loading]);
 
   if (loading || !userDetails?.name) {
     return <div>Loading</div>;
   }
 
-  return <CandidateProfilePage userDetails={userDetails} />;
+  return <CandidateProfile userDetails={userDetails} />;
 };
 
 export default CandidateProfilePage;

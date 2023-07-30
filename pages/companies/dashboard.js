@@ -2,6 +2,9 @@ import OpportunityCard from "@/components/app_elements/OpportunityCard";
 import dashboardStyles from "@/styles/pages/dashboard.module.css";
 import utilityStyles from "@/styles/utils/utilities.module.css";
 import opportunities from "@/public/data/opportunities.json";
+import { useEffect, useState } from "react";
+import { getDocs, collection } from "firebase/firestore";
+import { db } from "@/firebase";
 const events = [
   {
     title: "AdaptIT Hackathon",
@@ -13,15 +16,32 @@ const events = [
 ];
 
 const CompanyDashboardPage = () => {
-  const getCandidates = async () => {};
+  const [candidates, setCandidates] = useState(null);
+  const getCandidates = async () => {
+    let newCandidates = [];
+    const res = await getDocs(collection(db, "candidates"));
+    res.docs.forEach((doc) => {
+      newCandidates.push(doc.data());
+    });
+    setCandidates(newCandidates);
+  };
+
+  useEffect(() => {
+    getCandidates();
+  }, []);
+
+  if (!candidates) {
+    return <div>Loading</div>;
+  }
+
   return (
     <div className={dashboardStyles.container}>
       <span className={utilityStyles.heading3}>Candidate Matches</span>
       <div className={dashboardStyles.itemsContainer}>
-        {opportunities.map((element, idx) => {
+        {candidates.map((element, idx) => {
           return (
             <div key={`opportunity${idx}`} style={{ marginTop: "1rem" }}>
-              <OpportunityCard opportunity={element} />
+              <OpportunityCard opportunity={element} type="candidate" />
             </div>
           );
         })}

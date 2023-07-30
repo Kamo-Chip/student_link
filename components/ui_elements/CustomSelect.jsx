@@ -11,6 +11,7 @@ const CustomSelect = ({
   value,
   fillContainer,
   isSm,
+  handleChange,
 }) => {
   const [showOptions, setShowOptions] = useState(false);
   const [optionsToDisplay, setOptionsToDisplay] = useState(options);
@@ -117,7 +118,10 @@ const CustomSelect = ({
             return (
               <div
                 key={`${element.toString()}`}
-                onClick={(e) => handleOptionSelect(e)}
+                onClick={(e) => {
+                  handleChange(e);
+                  handleOptionSelect(e);
+                }}
                 className={customSelectStyles.option}
               >
                 {element}

@@ -3,44 +3,165 @@ import Image from "next/image";
 import { BiUserCircle } from "react-icons/bi";
 import utilityStyles from "@/styles/utils/utilities.module.css";
 import { Router, useRouter } from "next/router";
-
-const user = {
-  profilePhoto: "",
-  degree: "Computer Science",
-  university: "Wits",
-  schoolYear: "Undergraduate",
-  location: "Johannesburg",
-  name: "Kamogelo Khumalo",
-  bio: "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint",
-  socials: [
-    { title: "LinkedIn", link: "#" },
-    { title: "GitHub", link: "#" },
-  ],
-  documents: [{ title: "Resume", link: "#" }],
-  videoIntro: "",
-  skills: ["Java", "NextJs"],
-  experience: ["Tutor, July 2022 - June 2023"],
-  projects: [],
-  desiredRoles: ["Software Engineer"],
-};
+import { auth, db, storage } from "@/firebase";
+import { signInWithPopup, GoogleAuthProvider } from "firebase/auth";
+import { setDoc, doc, getDoc, updateDoc } from "firebase/firestore";
+import {
+  uploadBytes,
+  getDownloadURL,
+  ref,
+  deleteObject,
+} from "firebase/storage";
+import { useAmp } from "next/amp";
+import { useAuthState } from "react-firebase-hooks/auth";
+import { useEffect, useState } from "react";
 
 const CandidateEditProfilePage = () => {
   const router = useRouter();
+  const [user] = useAuthState(auth);
+  const [userDetails, setUserDetails] = useState(null);
 
-  const handleSubmit = () => {
+  const getUser = async () => {
+    const res = await getDoc(doc(db, "candidates", user.uid));
+    setUserDetails(res.data());
+  };
+
+  const handleProfilePhotoUpload = async (e) => {
+    e.preventDefault();
+    await deleteProfilePhoto();
+
+    const file = document.querySelector("#profilePhoto").files[0];
+    if (!file) return;
+
+    const storageRef = ref(storage, `${user.uid}/profilePhoto/${file.name}`);
+    uploadBytes(storageRef, file)
+      .then(() => {
+        getDownloadURL(storageRef)
+          .then((url) => {
+            setUserDetails((prevState) => ({
+              ...prevState,
+              profilePhoto: url,
+            }));
+            setUserDetails((prevState) => ({
+              ...prevState,
+              imageName: file.name,
+            }));
+            document.querySelector("#profilePhoto").value = "";
+            console.log(file);
+          })
+          .catch((err) => console.error(err));
+      })
+      .catch((err) => console.log(err));
+  };
+
+  const deleteProfilePhoto = async (e) => {
+    const storageRef = ref(
+      storage,
+      `${user.uid}/profilePhoto/${userDetails.imageName}`
+    );
+
+    deleteObject(storageRef)
+      .then(() => {
+        setUserDetails({ ...userDetails, profilePhoto: "" });
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  };
+
+  const handleIntroVideoUpload = async (e) => {
+    e.preventDefault();
+    await deleteIntroVideo();
+
+    const file = document.querySelector("#video").files[0];
+    if (!file) return;
+
+    const storageRef = ref(storage, `${user.uid}/introVideo/${file.name}`);
+    uploadBytes(storageRef, file)
+      .then(() => {
+        getDownloadURL(storageRef)
+          .then((url) => {
+            setUserDetails((prevState) => ({
+              ...prevState,
+              introVideo: url,
+            }));
+            setUserDetails((prevState) => ({
+              ...prevState,
+              introVideoName: file.name,
+            }));
+            document.querySelector("#video").value = "";
+          })
+          .catch((err) => console.error(err));
+      })
+      .catch((err) => console.log(err));
+  };
+
+  const deleteIntroVideo = async (e) => {
+    const storageRef = ref(
+      storage,
+      `${user.uid}/introVideo/${userDetails.introVideoName}`
+    );
+
+    deleteObject(storageRef)
+      .then(() => {
+        setUserDetails({ ...userDetails, introVideo: "", introVideoName: "" });
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  };
+
+  const handleSubmit = async () => {
+    await updateDoc(doc(db, "candidates", user.uid), userDetails);
     router.push("/candidates/profile");
   };
+
+  const handleChange = () => {};
+
+  useEffect(() => {
+    console.log(userDetails);
+  }, [userDetails]);
+  useEffect(() => {
+    if (user) {
+      getUser();
+    }
+  }, [user]);
+
+  if (!userDetails) {
+    return <div>Loading</div>;
+  }
   return (
     <>
       <div className={profileStyles.container}>
         <div className={profileStyles.header}>
           <div>
-            {user.profilePhoto ? (
-              <Image src={opportunity.logo} height={120} width={120} alt="" />
+            {userDetails.profilePhoto ? (
+              <Image
+                loader={() => userDetails.profilePhoto}
+                src={userDetails.profilePhoto}
+                height={120}
+                width={120}
+                alt=""
+              />
             ) : (
-              <span>
+              <div
+                style={{
+                  display: "flex",
+                  flexDirection: "column",
+                  alignItems: "center",
+                }}
+              >
                 <BiUserCircle size="120px" />
-              </span>
+                <label className={utilityStyles.button} htmlFor="profilePhoto">
+                  Upload
+                </label>
+                <input
+                  type="file"
+                  id="profilePhoto"
+                  style={{ display: "none" }}
+                  onChange={handleProfilePhotoUpload}
+                />
+              </div>
             )}
           </div>
           <div
@@ -52,23 +173,27 @@ const CandidateEditProfilePage = () => {
           >
             <input
               type="text"
+              id="degree"
               className={utilityStyles.tab}
-              placeholder={user.degree}
+              placeholder={userDetails.degree}
             />
             <input
               type="text"
+              id="university"
               className={utilityStyles.tab}
-              placeholder={user.university}
+              placeholder={userDetails.university}
             />
             <input
               type="text"
+              id="schoolYear"
               className={utilityStyles.tab}
-              placeholder={user.schoolYear}
+              placeholder={userDetails.schoolYear}
             />
             <input
               type="text"
+              id="location"
               className={utilityStyles.tab}
-              placeholder={user.location}
+              placeholder={userDetails.location}
             />
           </div>
           <span
@@ -88,9 +213,18 @@ const CandidateEditProfilePage = () => {
             borderBottom: "solid 1px var(--border-grey)",
           }}
         >
-          <input className={utilityStyles.heading2} placeholder={user.name} />
-          <textarea style={{ marginTop: "1rem", height: "200px" }}>
-            {user.bio}
+          <input
+            className={utilityStyles.heading2}
+            id="name"
+            onChange={handleChange}
+            placeholder={userDetails.name}
+          />
+          <textarea
+            style={{ marginTop: "1rem", height: "200px" }}
+            id="bio"
+            onChange={handleChange}
+          >
+            {userDetails.bio}
           </textarea>
         </div>
         <div
@@ -110,7 +244,7 @@ const CandidateEditProfilePage = () => {
               marginTop: ".5rem",
             }}
           >
-            {user.socials.map((element, idx) => {
+            {userDetails.socials.map((element, idx) => {
               return (
                 <a
                   href={element.link}
@@ -139,7 +273,7 @@ const CandidateEditProfilePage = () => {
               marginTop: ".5rem",
             }}
           >
-            {user.documents.map((element, idx) => {
+            {userDetails.documents.map((element, idx) => {
               return (
                 <a
                   href={element.link}
@@ -154,22 +288,43 @@ const CandidateEditProfilePage = () => {
           </div>
         </div>
       </div>
-      <div className={profileStyles.container} style={{ marginTop: "1rem" }}>
-        <span className={utilityStyles.heading3}>Video Intro</span>
-        <label htmlFor="videoIntro" className={utilityStyles.button}>
-          Upload
-        </label>
+      <div
+        style={{ marginTop: "1rem", display: "flex", flexDirection: "column" }}
+      >
+        <div
+          style={{
+            display: "flex",
+            justifyContent: "space-between",
+            marginBottom: "1rem",
+          }}
+        >
+          <span className={utilityStyles.heading3}>Video Intro</span>
+          {!userDetails.introVideo ? (
+            <label htmlFor="video" className={utilityStyles.button}>
+              Upload
+            </label>
+          ) : (
+            <span className={utilityStyles.button}>Delete</span>
+          )}
+        </div>
+
         <input
           type="file"
           style={{ display: "none" }}
-          name="videoIntro"
-          id="videoIntro"
+          name="video"
+          id="video"
+          onChange={handleIntroVideoUpload}
         />
-        {!user.videoIntro ? (
+        {!userDetails.introVideo ? (
           <div>No video</div>
         ) : (
-          <video autoPlay loop style={{ width: "500px", height: "500px" }}>
-            <source src={user.videoIntro} />
+          <video
+            controls
+            width="200"
+            style={{ maxHeight: "140px", width: "auto" }}
+            id="introVideo"
+          >
+            <source src={userDetails.introVideo} type="video/mp4" />
           </video>
         )}
       </div>
@@ -190,7 +345,7 @@ const CandidateEditProfilePage = () => {
               marginTop: ".5rem",
             }}
           >
-            {user.skills.map((element, idx) => {
+            {userDetails.skills.map((element, idx) => {
               return (
                 <span
                   key={`skill${idx}`}
@@ -220,7 +375,7 @@ const CandidateEditProfilePage = () => {
               marginTop: ".5rem",
             }}
           >
-            {user.experience.map((element, idx) => {
+            {userDetails.experience.map((element, idx) => {
               return (
                 <span
                   key={`exp${idx}`}
@@ -250,7 +405,7 @@ const CandidateEditProfilePage = () => {
               marginTop: ".5rem",
             }}
           >
-            {user.projects.map((element, idx) => {
+            {userDetails.projects.map((element, idx) => {
               return (
                 <span
                   key={`proj${idx}`}
@@ -278,7 +433,7 @@ const CandidateEditProfilePage = () => {
               marginTop: ".5rem",
             }}
           >
-            {user.desiredRoles.map((element, idx) => {
+            {userDetails.desiredRoles.map((element, idx) => {
               return (
                 <span
                   key={`role${idx}`}
