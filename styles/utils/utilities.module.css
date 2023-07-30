@@ -36,6 +36,7 @@
   width: fit-content;
   padding: 0.2em 0.5em;
   font-weight: 500;
+  white-space: nowrap;
 }
 
 .button,

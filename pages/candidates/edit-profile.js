@@ -116,7 +116,9 @@ const CandidateEditProfilePage = () => {
     router.push("/candidates/profile");
   };
 
-  const handleChange = () => {};
+  const handleChange = (e) => {
+    setUserDetails({ ...userDetails, [e.target.id]: e.target.value });
+  };
 
   useEffect(() => {
     console.log(userDetails);
@@ -174,24 +176,28 @@ const CandidateEditProfilePage = () => {
             <input
               type="text"
               id="degree"
+              handleChange={handleChange}
               className={utilityStyles.tab}
               placeholder={userDetails.degree}
             />
             <input
               type="text"
               id="university"
+              handleChange={handleChange}
               className={utilityStyles.tab}
               placeholder={userDetails.university}
             />
             <input
               type="text"
               id="schoolYear"
+              handleChange={handleChange}
               className={utilityStyles.tab}
               placeholder={userDetails.schoolYear}
             />
             <input
               type="text"
               id="location"
+              handleChange={handleChange}
               className={utilityStyles.tab}
               placeholder={userDetails.location}
             />

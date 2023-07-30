@@ -17,6 +17,7 @@ const CandidateProfile = ({ userDetails, isCompanyViewing }) => {
               <Image
                 loader={() => userDetails.profilePhoto}
                 src={userDetails.profilePhoto}
+                style={{ borderRadius: "50%" }}
                 height={120}
                 width={120}
                 alt=""
